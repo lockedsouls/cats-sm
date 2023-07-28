@@ -1,14 +1,25 @@
-# Setup project
-## Setup frontend
+# Init frontend
 <pre>
 > cd frontend
 > npm i
 </pre>
 
-## Setup server
+# Init server
 <pre>
 > cd server
 > npm i
+</pre>
+
+# Run frontend
+<pre>
+> cd frontend
+> npm run start
+</pre>
+
+# Run server
+<pre>
+> cd server
+> npm run start
 </pre>
 
 # Merging
