@@ -35,7 +35,7 @@ You can always merge develop into your task branch, to get the latest updates<br
 After you're done with the task, ask the admin (Cristian) to change the task status to <i>Pull Request</i> and to merge it into develop
 
 # Tasks
-(nr). [Frontend | Backend]: (task name) | <b>[Declared | Doing | Blocked | Pull Request | Done]</b><br>
+(nr). [Frontend | Backend]: (task name) | <b>[Declared | Doing | Icebox | Pull Request | Done]</b><br>
 - To view the latest version of this file, checkout to the latest master commit
 - Only the admin (Cristian) can change the statuses
 - Task request are welcomed
