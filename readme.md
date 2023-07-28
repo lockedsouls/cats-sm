@@ -29,6 +29,7 @@ Before starting a task, create branch and push it to github like this:
 git checkout develop
 git branch [task/(task_name)]
 git checkout [task/(task_name)] <-- here you checkout the branch you created
+git push -u origin [task/(task_name)]
 </pre>
 You can always merge develop into your task branch, to get the latest updates<br>
 After you're done with the task, ask the admin (Cristian) to change the task status to <i>Pull Request</i> and to merge it into develop
