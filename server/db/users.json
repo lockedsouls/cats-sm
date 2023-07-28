@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "username": "admin",
+        "password": "$2b$10$45oRK4qya5DM7kqeZt1.Besj6A140CXC/eq2PMZnlay5D9c/n9m/C"
+    },
+    {
+        "id": 2,
+        "username": "balls",
+        "password": "$2b$10$GzaXTbQUw5Ermlx/O8JToOM2aocxemQv8lO16J.wFB1o5Cs.yKjyO"
+    },
+    {
+        "id": 3,
+        "username": "open",
+        "password": "$2b$10$vHWe.A7KDLaJyd7qGdoIueTqYRumOZ/vGwKNgPa1VuYUOrtxu7C8C"
+    }
+]
