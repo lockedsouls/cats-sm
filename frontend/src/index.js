@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/index.css";
 
+import LoginPage from './components/LoginPage';
+
 const Routes = createBrowserRouter([
     {
         path: "*",
@@ -11,6 +13,10 @@ const Routes = createBrowserRouter([
     {
         path: "/",
         element: <h1>Content here</h1>
+    },
+    {
+        path: "/auth",
+        element: <LoginPage/>
     }
 ]);
 
