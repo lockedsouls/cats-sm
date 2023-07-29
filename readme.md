@@ -43,7 +43,7 @@ After you're done with the task, ask the admin (Cristian) to change the task sta
 <pre>
 1. Backend:  Setup the server     | <b>Done</b>
 2. Backend:  Setup the db         | <b>Declared</b>
-3. Backend:  Write the Auth API   | <b>Doing</b>
+3. Backend:  Write the Auth API   | <b>Done</b>
 4. Frontend: Setup axios Auth API | <b>Doing</b>
 5. Frontend: Setup the frontend   | <b>Done</b>
 ...
