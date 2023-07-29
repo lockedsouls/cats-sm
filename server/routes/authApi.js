@@ -14,8 +14,10 @@ Router.route("/auth")
                 message: "Forbidden"
         });
 
+        //loop through users to find the target user
         Users.forEach(user => {
             if (user.username == username) bcrypt.compare(password, user.password, error => {
+                //if passwords don't match, return 403
                 if (error) return res.status(403).json({
                         message: "Forbidden"
                 });
@@ -29,7 +31,7 @@ Router.route("/auth")
             })
         })
 
-    })
+    });
 
 Router.route("/register")
     .post((req, res) => {
