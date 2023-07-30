@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@800&display=swap');
 
+$selection-color: #EEEEEE;
+$element-background-active-color: #398279;
+$page-background: #0F1A2B;
+$component-background-1: #273345;
+$component-background-2: #245953;
+
 body {
   box-sizing: border-box;
   margin: 0;
@@ -42,4 +48,3 @@ body {
     font-weight: 800;
     margin-bottom: 20px;
   }
-}
