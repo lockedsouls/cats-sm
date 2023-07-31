@@ -33,6 +33,7 @@ git push -u origin [task/(task_name)]
 </pre>
 You can always merge develop into your task branch, to get the latest updates<br>
 After you're done with the task, ask the admin (Cristian) to change the task status to <i>Pull Request</i> and to merge it into develop
+David may also merge tasks into develop
 
 # Tasks
 (nr). [Frontend | Backend]: (task name) | <b>[Declared | Doing | Icebox | Pull Request | Done]</b><br>
@@ -51,14 +52,14 @@ After you're done with the task, ask the admin (Cristian) to change the task sta
 
 ## David
 <pre>
-1. Frontend: Design the Post component | <b>Declared</b>
-2. Frontend: Design the Main page      | <b>Declared</b>
+1. Frontend: Design the Post component | <b>Doing</b>
+2. Frontend: Design the Main page      | <b>Doing</b>
 3. Backend:  Implement the Post model  | <b>Declared</b>
 ...
 </pre>
 ## Calin
 <pre>
-1. Frontend: Design and develop the Log In page | <b>Declared</b>
+1. Frontend: Design and develop the Log In page | <b>Doing</b>
 2. Backend: Design the Post model               | <b>Declared</b>
 ...
 </pre>
