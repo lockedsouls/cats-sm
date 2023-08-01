@@ -42,11 +42,12 @@ David may also merge tasks into develop
 - Task request are welcomed
 ## Cristian
 <pre>
-1. Backend:  Setup the server     | <b>Done</b>
-2. Backend:  Setup the db         | <b>Done</b>
-3. Backend:  Write the Auth API   | <b>Done</b>
-4. Frontend: Setup axios Auth API | <b>Doing</b>
-5. Frontend: Setup the frontend   | <b>Done</b>
+1. Backend:  Setup the server       | <b>Done</b>
+2. Backend:  Setup the db           | <b>Done</b>
+3. Backend:  Write the Auth API     | <b>Done</b>
+4. Frontend: Setup axios Auth API   | <b>Doing</b>
+5. Frontend: Setup the frontend     | <b>Done</b>
+6. Backend: Eliminate callback hell | <b>Doing</b>
 ...
 </pre>
 
