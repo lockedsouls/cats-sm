@@ -2,33 +2,44 @@ const express = require("express");
 const Router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const fs = require("fs");
+const db = require("../db/db");
 
 Router.route("/auth")
     .post((req, res) => {
         const {username, password} = req.body;
+        console.log(username);
 
         if (!username || !password) return res.status(403).json({
                 message: "Forbidden"
         });
 
-        //loop through users to find the target user
-        Users.forEach(user => {
-            if (user.username == username) bcrypt.compare(password, user.password, error => {
-                //if passwords don't match, return 403
-                if (error) return res.status(403).json({
-                        message: "Forbidden"
+        db.query(`SELECT * FROM users WHERE username='${username}'`, (error, data) => {
+            const target = data[0];
+
+            if (!target) return res.status(404).json({
+                message: "User does not exist"
+            });
+
+            bcrypt.compare(password, target.password).then(matches => {
+                if (!matches) return res.status(401).json({
+                    message: "Passwords don't match"
                 });
-                
-                const token = jwt.sign({id: user.id, username: user.username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "12h"});
-        
+
+                const data = {
+                    id: target.id,
+                    username: target.username,
+                    followers: target.followers
+                }
+
+                const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "8h"});
+
                 return res.status(200).json({
                     message: "Successfully logged in",
-                    accessToken: token
-                });
+                    data: data,
+                    accessToken: accessToken
+                })
             })
-        })
-
+        });
     });
 
 Router.route("/register")
@@ -40,14 +51,33 @@ Router.route("/register")
         });
 
         //check if user exists
-
-        //hash password
-        bcrypt.hash(password, 10, (error, hash) => {
-            if (error) return res.status(500).json({
-                message: "An error has occured"
+        db.query(`SELECT * FROM users WHERE username='${username}'`, (error, data) => {
+            if (data[0]) return res.status(400).json({
+                message: "User already exists",
+                data: {username}
             });
-            //update db
-            res.send(hash);
+
+            bcrypt.hash(password, 10, (error, hash) => {
+                if (error) return res.status(500).json({
+                    message: "An error has occured"
+                });
+
+                db.query(`INSERT INTO users(username, password, followers) VALUES('${username}', '${hash}', 0)`, (error, record) => {
+                    if (error) return res.status(500).json({
+                        message: "An error has occured",
+                        error
+                    });
+
+                    return res.status(200).json({
+                        message: "Successfully logged in",
+                        data: {
+                            id: record.insertId,
+                            username: username,
+                            followers: 0
+                        }
+                    })
+                });
+            })
         })
     });
 
