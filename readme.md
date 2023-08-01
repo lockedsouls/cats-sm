@@ -43,7 +43,7 @@ David may also merge tasks into develop
 ## Cristian
 <pre>
 1. Backend:  Setup the server     | <b>Done</b>
-2. Backend:  Setup the db         | <b>Declared</b>
+2. Backend:  Setup the db         | <b>Done</b>
 3. Backend:  Write the Auth API   | <b>Done</b>
 4. Frontend: Setup axios Auth API | <b>Doing</b>
 5. Frontend: Setup the frontend   | <b>Done</b>
