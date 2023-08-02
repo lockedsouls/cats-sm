@@ -4,81 +4,94 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const db = require("../db/db");
 
+const userController = require("../db/controllers/userController")
+
+const hashPassword = (password) => {
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(password, 10, (error, hash) => {
+            if (error) return reject(error);
+            resolve(hash);
+        })
+    })
+}
+
+const comparePasswords = (password, hashedPassword) => {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, hashedPassword).then(matches => {
+            if (!matches) return reject("Passwords don't match");
+            resolve();
+        })
+    })
+}
+
 Router.route("/auth")
-    .post((req, res) => {
+    .post(async (req, res) => {
         const {username, password} = req.body;
-        console.log(username);
 
         if (!username || !password) return res.status(403).json({
                 message: "Forbidden"
         });
+        
+        try{
+            const user = (await userController.getUserByColumn("username", username))[0];
+            if (!user) throw "User does not exist";
 
-        db.query(`SELECT * FROM users WHERE username='${username}'`, (error, data) => {
-            const target = data[0];
+            await comparePasswords(password, user.password);
 
-            if (!target) return res.status(404).json({
-                message: "User does not exist"
-            });
+            const payload = {
+                id: user.id,
+                username: user.username,
+                followers: user.followers
+            }
+            const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "8h"});
 
-            bcrypt.compare(password, target.password).then(matches => {
-                if (!matches) return res.status(401).json({
-                    message: "Passwords don't match"
-                });
-
-                const data = {
-                    id: target.id,
-                    username: target.username,
-                    followers: target.followers
-                }
-
-                const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "8h"});
-
-                return res.status(200).json({
-                    message: "Successfully logged in",
-                    data: data,
-                    accessToken: accessToken
-                })
+            return res.status(200).json({
+                message: "Successfully logged in",
+                data: payload,
+                accessToken: accessToken
             })
-        });
+        }catch(error){
+            return res.status(401).json({
+                message: error.message || error
+            })
+        }
     });
 
 Router.route("/register")
-    .post((req, res) => {
+    .post(async (req, res) => {
         const {username, password} = req.body;
 
         if (!username || !password) return res.status(403).json({
                 message: "Forbidden"
         });
 
-        //check if user exists
-        db.query(`SELECT * FROM users WHERE username='${username}'`, (error, data) => {
-            if (data[0]) return res.status(400).json({
-                message: "User already exists",
-                data: {username}
+        try{
+            //check if user exists
+            const user = (await userController.getUserByColumn("username", username))[0];
+
+            if (user) return res.status(409).json({
+                message: "User already exists"
             });
 
-            bcrypt.hash(password, 10, (error, hash) => {
-                if (error) return res.status(500).json({
-                    message: "An error has occured"
-                });
+            const hashedPassword = await hashPassword(password);
+            const record = await userController.insertIntoUsers({
+                username: username,
+                password: hashedPassword
+            });
 
-                db.query(`INSERT INTO users(username, password, followers) VALUES('${username}', '${hash}', 0)`, (error, record) => {
-                    if (error) return res.status(500).json({
-                        message: "An error has occured",
-                        error
-                    });
-
-                    return res.status(200).json({
-                        message: "Successfully logged in",
-                        data: {
-                            id: record.insertId,
-                            username: username,
-                            followers: 0
-                        }
-                    })
-                });
+            return res.status(200).json({
+                message: "Successfully registred",
+                data: {
+                    id: record.insertId,
+                    username: username,
+                    followers: 0
+                }
             })
-        })
+        }catch(error){
+            return res.status(401).json({
+                message: error.message || error
+            });
+        }
     });
 
 module.exports = Router;
