@@ -13,7 +13,7 @@ const baseController = {
     insertIntoColumn: (table, columns, values) => {
         return new Promise((resolve, reject) => {
             const queryColumns = columns.map(item => item.name).toString();
-            const queryDataLine = values.map((item, index) => {
+            const queryData = values.map((item, index) => {
                 if (columns[index].isString) return `'${item}'`;
                 return item; 
             });
