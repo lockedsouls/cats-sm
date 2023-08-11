@@ -5,8 +5,10 @@ $element-background-active-color: #398279;
 $page-background: #0F1A2B;
 $component-background-1: #273345;
 $component-background-2: #245953;
+$LoginPageContainer-width: 700px;
 
 body {
+  background-color: $page-background;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -19,33 +21,151 @@ body {
   height: 100vh;
   justify-content: center;
 
-  form {
-    align-items: center;
+  .LoginPageContainer {
+    width: 700px;
+    height: 500px;
+    background-color: $component-background-2;
+    border-radius: 20px;
+
     display: flex;
     flex-direction: column;
+    align-items: center;
 
-    input {
-      margin-bottom: 10px;
-      padding: 10px;
-      width: 300px;
-    }
-
-    button {
-      background-color: #007bff;
-      border: none;
-      color: #fff;
-      cursor: pointer;
+    h1 {
+      color: #EEEEEE;
       font-family: 'Noto Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 200;
-      padding: 10px 20px;
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      padding: 30px;
     }
-  }
 
-  h1 {
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 20px;
+    form {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      width: calc($LoginPageContainer-width - 100px);
+
+      .inputContainer {
+        position: relative;
+        margin-bottom: -10px;
+      }
+
+      input {
+        background-color: $selection-color;
+        border: 3px solid $page-background;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        width: 297px;
+        height: 42px;
+        font-size: 16px;
+        font-weight: 200;
+        padding-left: 10px;
+
+        &:placeholder-shown {
+          color: $component-background-1;
+        }
+      }
+
+      .ForgotPass {
+        display: flex;
+        align-self: flex-end;
+        margin-left: 45px;
+        margin-bottom: 3px;
+
+        label.label1{
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          color: #EEEEEE;
+          font-family: 'Noto Sans', sans-serif;
+          font-size: 14px;
+        }
+      }
+
+      .CreateAccount {
+        display: flex;
+        margin-top: 20px;
+
+        label.label2{
+          display: flex;
+          align-items: center;
+          color: #EEEEEE;
+          font-family: 'Noto Sans', sans-serif;
+          font-size: 14px;
+        }
+
+        label.label3{
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          color: #EEEEEE;
+          font-family: 'Noto Sans', sans-serif;
+          font-size: 14px;
+          margin-left: 10px;
+        }
+      }
+
+      .RememberMe {
+        display: flex;
+        align-self: flex-start;
+        margin-bottom: 30px;
+
+        label.checkbox {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          color: #EEEEEE;
+          font-family: 'Noto Sans', sans-serif;
+          font-size: 14px;
+          transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        input[type='checkbox'] {
+          position: absolute;
+          opacity: 0;
+          height: 0;
+          width: 0;
+          transition: opacity 0.4s ease;
+        }
+
+        .checkmark {
+          position: relative;
+          height: 20px;
+          width: 20px;
+          background-color: $selection-color;
+          margin-right: 10px;
+          border: 3px solid $page-background;
+          border-radius: 5px;
+          transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        input[type='checkbox']:checked ~ .checkmark {
+          background-color: $component-background-1;
+          transform: scale(1.1);
+        }
+
+        input[type='checkbox']:checked ~ .checkmark:before {
+          content: '';
+          background-color: transparent;
+          transform: scale(1.1);
+        }
+      }
+
+      button {
+        background-color: $component-background-1;
+        border: none;
+        color: #EEEEEE;
+        cursor: pointer;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 24px;
+        font-weight: 200;
+        padding: 10px 20px;
+        width: 309px;
+        height: 70px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+      }
+    }
   }
 }
